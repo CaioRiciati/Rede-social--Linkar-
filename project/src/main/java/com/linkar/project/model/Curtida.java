@@ -29,5 +29,5 @@ public class Curtida {
 
     private LocalDateTime criadoEm = LocalDateTime.now();
 
-    // getters e setters
+  
 }

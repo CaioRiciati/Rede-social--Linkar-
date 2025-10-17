@@ -31,7 +31,7 @@ import jakarta.persistence.Table;
 	    private String senha;
 
 	    @Enumerated(EnumType.STRING)
-	    private TipoUsuario tipo; // DIRECAO, PROFESSOR, ALUNO, PAI
+	    private TipoUsuario tipo; 
 
 	    private String fotoPerfil;
 
@@ -41,7 +41,7 @@ import jakarta.persistence.Table;
 	    @OneToMany(mappedBy = "usuario")
 	    private List<Comentario> comentarios;
 
-	    // getters e setters
+
 	}
 
 

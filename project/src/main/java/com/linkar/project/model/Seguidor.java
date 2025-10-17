@@ -28,5 +28,5 @@ public class Seguidor {
 
     private LocalDateTime criadoEm = LocalDateTime.now();
 
-    // getters e setters
+
 }

@@ -35,7 +35,7 @@ public class Comentario {
 
     @ManyToOne
     @JoinColumn(name = "resposta_a")
-    private Comentario respostaA; // comentário pai
+    private Comentario respostaA; 
 
-    // getters e setters
+    
 }

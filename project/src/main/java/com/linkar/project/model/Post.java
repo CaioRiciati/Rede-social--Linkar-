@@ -33,8 +33,7 @@ public class Post {
     private String conteudo;
 
     @Enumerated(EnumType.STRING)
-    private Visibilidade visibilidade; // PUBLICO ou PRIVADO
-
+    private Visibilidade visibilidade;
     private LocalDateTime criadoEm = LocalDateTime.now();
 
     @OneToMany(mappedBy = "post")
@@ -43,5 +42,5 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Curtida> curtidas;
 
-    // getters e setters
+
 }
