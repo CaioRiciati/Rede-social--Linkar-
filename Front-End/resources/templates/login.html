@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Linkar</title>
+  <link rel="stylesheet" href="../static/css/login.css">
+</head>
+<body>
+  <!-- TOPO -->
+  <header class="topo">
+    <div class="logo">
+      <div class="icone-logo"><!-- Ícone E --></div>
+      <span>Linkar</span>
+    </div>
+
+    <div class="icones-topo">
+    <button id="btn-busca" class="btn-icone"> <img src="../static/images/lupa.png" alt="Ícone busca"> </button>
+    <button id="btn-sino" class="btn-icone"> <img src="../static/images/sino.png" alt="Ícone sino"> </button>
+    <button id="btn-perfil" class="btn-icone"> <img src="../static/images/user_icon_png.png" alt="Ícone perfil"> </button>
+  </div>
+  </header>
+
+  <!-- ÁREA DE LOGIN -->
+  <main class="login-container">
+    <div class="login-box">
+      <div class="logo-centro">
+        <div class="icone-logo"><!-- Ícone E --></div>
+        <span>Linkar</span>
+      </div>
+
+      <form method="POST" action="#">
+        <div class="campo">
+          <div class="icone-input">
+            <img src="../static/images/user_icon_png.png" alt="Ícone usuário">
+          </div>
+          <input type="text" placeholder="Usuário" required> 
+        </div>
+
+        <div class="campo">
+          <div class="icone-input">
+            <img src="../static/images/user_icon_png.png" alt="">
+          </div>
+          <input type="password" placeholder="Senha" required>
+        </div>
+        <button id="btnEntrar" type="submit" class="btn-entrar">ENTRAR</button>
+      </form>
+    </div>
+  </main>
