@@ -25,7 +25,7 @@ public class PostController {
     @Autowired
     private PostRepository postRepository;
 
-    // Caminho para salvar as imagens no servidor
+    //
     private static String UPLOAD_DIR = "src/main/resources/static/uploads/posts/";
 
     @GetMapping("/novo-post")
@@ -41,30 +41,29 @@ public class PostController {
             Model model) {
 
         try {
-            // Cria a pasta se não existir
+        	
             File uploadDir = new File(UPLOAD_DIR);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
 
-            // Salva a imagem (se enviada)
+
             String fotoUrl = null;
             if (!foto.isEmpty()) {
                 String nomeArquivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename();
                 Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
                 Files.write(caminho, foto.getBytes());
-                fotoUrl = "/uploads/posts/" + nomeArquivo; // Caminho acessível via navegador
+                fotoUrl = "/uploads/posts/" + nomeArquivo; 
             }
 
-            // Cria o post
             Post post = new Post();
             post.setConteudo(conteudo);
             post.setVisibilidade(Visibilidade.valueOf(visibilidade));
             post.setFotoUrl(fotoUrl);
 
-            // Aqui você pode definir o usuário logado se quiser
+            
             Usuario usuarioFake = new Usuario();
-            usuarioFake.setId(1L); // Exemplo temporário
+            usuarioFake.setId(1L); 
             post.setUsuario(usuarioFake);
 
             postRepository.save(post);
@@ -78,6 +77,9 @@ public class PostController {
             return "novo-post";
         }
     }
+    
+    
+    
     
     
     

@@ -90,7 +90,7 @@
         <a href="/novo-post" class="btn-novo">➕ Novo Post</a>
 
         <div th:if="${#lists.isEmpty(posts)}" class="no-posts">
-            Nenhum post encontrado 😔
+            Nenhum post encontrado
         </div>
 
         <div th:each="post : ${posts}" class="post">
