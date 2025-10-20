@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed - Linkar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0b8457;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .feed-container {
+            width: 600px;
+            margin: 30px auto;
+        }
+
+        .post {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .post-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .post-header span {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .post img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .post p {
+            color: #444;
+            margin-top: 10px;
+        }
+
+        .no-posts {
+            text-align: center;
+            color: #777;
+            margin-top: 50px;
+        }
+
+        .btn-novo {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #0b8457;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .btn-novo:hover {
+            background-color: #096b47;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Feed da Linkar</h1>
+    </header>
+
+    <div class="feed-container">
+
+        <a href="/novo-post" class="btn-novo">➕ Novo Post</a>
+
+        <div th:if="${#lists.isEmpty(posts)}" class="no-posts">
+            Nenhum post encontrado 😔
+        </div>
+
+        <div th:each="post : ${posts}" class="post">
+            <div class="post-header">
+                <h3 th:text="${post.usuario != null ? post.usuario.nome : 'Usuário Anônimo'}">Usuário</h3>
+                <span th:text="${#temporals.format(post.criadoEm, 'dd/MM/yyyy HH:mm')}"></span>
+            </div>
+
+            <p th:text="${post.conteudo}">Conteúdo</p>
+
+            <img th:if="${post.fotoUrl != null}" th:src="@{${post.fotoUrl}}" alt="Imagem do post">
+            
+            <p style="font-size:12px; color:gray;">
+                Visibilidade: <span th:text="${post.visibilidade}"></span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

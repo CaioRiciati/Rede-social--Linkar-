@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Post - Linkar</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f3f3f3; }
+        form { background: white; padding: 20px; border-radius: 10px; width: 400px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        input, textarea, select { width: 100%; margin-bottom: 15px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #0b8457; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #096b47; }
+        .preview img { max-width: 100%; margin-top: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align:center;">Criar Novo Post</h2>
+
+    <form th:action="@{/salvar-post}" method="post" enctype="multipart/form-data">
+        <label>Conteúdo:</label>
+        <textarea name="conteudo" rows="4" placeholder="Escreva algo..."></textarea>
+
+        <label>Visibilidade:</label>
+        <select name="visibilidade">
+            <option value="PUBLICO">Público</option>
+            <option value="PRIVADO">Privado</option>
+        </select>
+
+        <label>Foto:</label>
+        <input type="file" name="foto" accept="image/*" onchange="previewImage(event)">
+
+        <div class="preview" id="preview"></div>
+
+        <button type="submit">Publicar</button>
+    </form>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                preview.appendChild(img);
+            }
+        }
+    </script>
+</body>
+</html>
