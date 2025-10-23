@@ -1,4 +1,4 @@
-package com.linkar.project.model;
+package com.linkar.project.Repository;
 
 public interface SeguidorRepository {
 

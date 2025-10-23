@@ -1,15 +1,23 @@
 package com.linkar.project.Repository;
 
+
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.linkar.project.model.Usuario;
 
-public interface UsuarioRepository  extends CrudRepository<Usuario, String>{
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	
-	Usuario findById(long id);
-	
-	@Query(value="select * from linkar.usuarios where email = :email and senha = :senha", nativeQuery = true)
-	public Usuario login(String email, String senha);
+    @Override
+    Optional<Usuario> findById(Long id);
+
+
+    @Query(value = "SELECT * FROM usuarios WHERE email = :email AND senha = :senha", nativeQuery = true)
+    Usuario login(@Param("email") String email, @Param("senha") String senha);
 }

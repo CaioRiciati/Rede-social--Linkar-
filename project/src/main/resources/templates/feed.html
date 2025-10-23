@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Feed - Linkar</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,12 +60,6 @@
             margin-top: 10px;
         }
 
-        .no-posts {
-            text-align: center;
-            color: #777;
-            margin-top: 50px;
-        }
-
         .btn-novo {
             display: inline-block;
             margin-top: 20px;
@@ -78,35 +73,141 @@
         .btn-novo:hover {
             background-color: #096b47;
         }
+
+        .comentarios {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .comentario {
+            background: #f7f7f7;
+            border-radius: 6px;
+            padding: 5px 10px;
+            margin-top: 5px;
+        }
+
+        .btn-like {
+            background: none;
+            border: none;
+            color: #d9534f;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-comentario, .btn-toggle {
+            background-color: #0b8457;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .btn-comentario:hover, .btn-toggle:hover {
+            background-color: #096b47;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Feed da Linkar</h1>
-    </header>
+<header>
+    <h1>Feed da Linkar</h1>
+</header>
 
-    <div class="feed-container">
+<div class="feed-container">
 
-        <a href="/novo-post" class="btn-novo">➕ Novo Post</a>
+    <a href="/novo-post" class="btn-novo">➕ Novo Post</a>
 
-        <div th:if="${#lists.isEmpty(posts)}" class="no-posts">
-            Nenhum post encontrado
-        </div>
-
-        <div th:each="post : ${posts}" class="post">
-            <div class="post-header">
-                <h3 th:text="${post.usuario != null ? post.usuario.nome : 'Usuário Anônimo'}">Usuário</h3>
-                <span th:text="${#temporals.format(post.criadoEm, 'dd/MM/yyyy HH:mm')}"></span>
-            </div>
-
-            <p th:text="${post.conteudo}">Conteúdo</p>
-
-            <img th:if="${post.fotoUrl != null}" th:src="@{${post.fotoUrl}}" alt="Imagem do post">
-            
-            <p style="font-size:12px; color:gray;">
-                Visibilidade: <span th:text="${post.visibilidade}"></span>
-            </p>
-        </div>
+    <div th:if="${#lists.isEmpty(posts)}" class="no-posts">
+        Nenhum post encontrado
     </div>
+
+    <div th:each="post : ${posts}" class="post">
+        <div class="post-header">
+            <h3 th:text="${post.usuario != null ? post.usuario.nome : 'Usuário Anônimo'}">Usuário</h3>
+            <span th:text="${#temporals.format(post.criadoEm, 'dd/MM/yyyy HH:mm')}"></span>
+        </div>
+
+        <p th:text="${post.conteudo}">Conteúdo</p>
+        <img th:if="${post.fotoUrl != null}" th:src="${post.fotoUrl}" alt="Imagem do post">
+
+        <p style="font-size:12px; color:gray;">
+            Visibilidade: <span th:text="${post.visibilidade}"></span>
+        </p>
+
+        <!-- Curtidas -->
+        <div class="post-actions">
+            <button type="button" class="btn-like"
+                    th:attr="data-id=${post.id}"
+                    onclick="curtirPost(this)">
+                ❤️ Curtir (<span th:attr="id='qtd-curtidas-' + ${post.id}" th:text="${post.qtdCurtidas}">0</span>)
+            </button>
+        </div>
+
+        <!-- Botões de interação -->
+        <button class="btn-toggle" type="button"
+                th:attr="id='btn-comentarios-' + ${post.id}"
+                th:attrappend="onclick='toggleComentarios(' + ${post.id} + ')'">
+            💬 Ver comentários
+        </button>
+
+        <button class="btn-comentario" type="button"
+                th:attrappend="onclick='mostrarCampoComentario(' + ${post.id} + ')'">
+            💭 Comentar
+        </button>
+
+        <!-- Seção de comentários -->
+        <div class="comentarios" th:attr="id='comentarios-' + ${post.id}" style="display:none;">
+            <h4>Comentários</h4>
+            <div th:each="comentario : ${post.comentarios}" class="comentario">
+                <strong th:text="${comentario.usuario.nome}">Usuário</strong>:
+                <span th:text="${comentario.conteudo}">Comentário...</span>
+            </div>
+        </div>
+
+        <!-- Campo para novo comentário -->
+        <div class="novo-comentario" th:attr="id='form-comentar-' + ${post.id}" style="display:none; margin-top:10px;">
+            <form th:action="@{'/posts/' + ${post.id} + '/comentar'}" method="post">
+                <input type="text" name="conteudo" placeholder="Escreva um comentário..." required>
+                <button type="submit">💬 Enviar</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function toggleComentarios(postId) {
+    const section = document.getElementById('comentarios-' + postId);
+    const btn = document.getElementById('btn-comentarios-' + postId);
+
+    if (section.style.display === 'none' || section.style.display === '') {
+        section.style.display = 'block';
+        btn.textContent = '👁️ Ocultar comentários';
+    } else {
+        section.style.display = 'none';
+        btn.textContent = '💬 Ver comentários';
+    }
+}
+
+function mostrarCampoComentario(postId) {
+    const campo = document.getElementById('form-comentar-' + postId);
+    campo.style.display = (campo.style.display === 'none' || campo.style.display === '') ? 'block' : 'none';
+}
+
+async function curtirPost(button) {
+    const postId = button.getAttribute('data-id');
+    try {
+        const response = await fetch(`/posts/${postId}/curtir`, { method: 'POST' });
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('qtd-curtidas-' + postId).textContent = data.qtdCurtidas;
+        }
+    } catch (error) {
+        console.error('Erro ao curtir:', error);
+    }
+}
+</script>
 </body>
 </html>

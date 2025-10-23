@@ -26,7 +26,7 @@ public class Post {
     private LocalDateTime criadoEm = LocalDateTime.now();
 
     @Column(name = "foto_url")
-    private String fotoUrl; // <-- Caminho ou link da imagem (ex: "/uploads/posts/123.jpg")
+    private String fotoUrl; //Caminho da imagem (ex: "/uploads/posts/123.jpg")
 
     @OneToMany(mappedBy = "post")
     private List<Comentario> comentarios;
@@ -101,7 +101,11 @@ public class Post {
 		this.curtidas = curtidas;
 	}
 
-    
+	// Retorna a quantidade de curtidas do post
+	public int getQtdCurtidas() {
+	    return curtidas != null ? curtidas.size() : 0;
+	}
+
     
     
     
