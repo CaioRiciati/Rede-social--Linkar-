@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Editar Perfil - Rede Social Salotti</title>
+  <link rel="stylesheet" href="EditarPerfil.css">
+</head>
+<body>
+  <!-- ===== BARRA SUPERIOR (HEADER) ===== -->
+  <header class="topo">
+    <!-- Lado esquerdo -->
+    <div class="user-card">
+      <div class="user-avatar">E</div>
+      <span class="user-name">EscolaConnect</span>
+    </div>
+
+    <!-- Centro (menu com ícones + texto) -->
+    <nav class="menu-centro">
+      <a href="#" class="nav-link">
+        <img src="imagem/lar.png" alt="Feed" class="icon"> Feed
+      </a>
+      <a href="#" class="nav-link">
+        <img src="imagem/agenda.png" alt="Agenda" class="icon"> Agenda
+      </a>
+    </nav>
+
+    <!-- Lado direito -->
+    <div class="icones-topo">
+      <button class="btn-icone" aria-label="Buscar">
+        <img src="imagem/lupa-arredondada.png" alt="Buscar">
+      </button>
+      <button class="btn-icone" aria-label="Notificações">
+        <img src="imagem/sino.png" alt="Notificações">
+      </button>
+      <button class="btn-icone btn-icone--green" aria-label="Perfil">
+        <img src="imagem/pessoa1.png" alt="Perfil">
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== CONTEÚDO CENTRAL (EDITAR PERFIL) ===== -->
+  <main class="centraliza">
+    <div class="container">
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="avatar">
+            <!-- caminho da imagem do avatar -->
+            <img src="imagem/pessoa1.png" alt="Avatar do usuário">
+          </div>
+
+          <div class="profile-texts">
+            <h2>Editar Perfil</h2>
+            <p>Atualize suas informações</p>
+          </div>
+        </div>
+
+        <form class="profile-form">
+          <label for="name">Nome Completo</label>
+          <input type="text" id="name" placeholder="Digite seu nome completo">
+
+          <label for="email">Email</label>
+          <input type="email" id="email" class="email-btn" placeholder="Digite seu email">
+
+          <label for="phone">Telefone</label>
+          <input type="text" id="phone" placeholder="(00) 00000-0000">
+
+          <label for="user-type">Tipo de Usuário</label>
+          <select id="user-type">
+            <option>Aluno</option>
+            <option>Professor</option>
+          </select>
+
+          <label for="bio">Biografia</label>
+          <textarea id="bio" placeholder="Conte um pouco sobre você..."></textarea>
+
+          <div class="buttons">
+            <button type="button" class="cancel">Cancelar</button>
+            <button type="submit" class="save">Salvar Alterações</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+a
