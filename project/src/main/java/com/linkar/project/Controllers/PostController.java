@@ -137,7 +137,10 @@ public class PostController {
     }
 
 
-    
+    @PostMapping("/posts/comentar")
+    public String comentar(Model model) {
+    	return null;
+    }
     
     
 }
