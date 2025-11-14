@@ -49,9 +49,6 @@ public class Usuario {
     // e também pode ter vários comentários
     private List<Comentario> comentarios;
 
-
-    // Daqui pra baixo são os gets e sets
-   
     
     public Long getId() {
         return id;

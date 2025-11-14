@@ -11,4 +11,5 @@ import com.linkar.project.model.Usuario;
 public interface CurtidaRepository extends JpaRepository<Curtida, Long> {
     boolean existsByPostAndUsuario(Post post, Usuario usuario);
     void deleteByPostAndUsuario(Post post, Usuario usuario);
+	int countByPost(Post post);
 }

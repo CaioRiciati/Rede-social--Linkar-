@@ -91,15 +91,20 @@
 <body>
 
 <header>
-    <h2>EscolaConnect - Feed</h2>
-    <span th:text="'Olá, ' + ${usuario.nome}"></span>
+    <h2>Linkar</h2>
+
+    <!-- Se logado -->
+    <span th:if="${usuario != null}" th:text="'Olá, ' + ${usuario.nome}"></span>
+
+    <!-- Se não estiver logado -->
+    <span th:if="${usuario == null}">Olá, visitante</span>
 </header>
 
 <div class="feed-container">
 
     <!-- BOTÃO DE NOVO POST -->
-    <a th:if="${usuario.tipo == 'PROFESSOR' || usuario.tipo == 'DIRECAO'}"
-       href="/novo-post" class="btn">➕ Novo Post</a>
+    <a th:if="${usuario != null}" href="/novo-post" class="btn">➕ Novo Post</a>
+
 
     <!-- ABAS -->
     <div class="tabs">
@@ -108,17 +113,17 @@
            href="/feed?categoria=TODOS">Todos</a>
 
         <a class="tab"
-           th:if="${usuario.tipo == 'ALUNO' || usuario.tipo == 'PROFESSOR' || usuario.tipo == 'DIRECAO'}"
+           th:if="${usuario != null and (usuario.tipo == 'ALUNO' or usuario.tipo == 'PROFESSOR' or usuario.tipo == 'DIRECAO')}"
            th:classappend="${categoriaAtual == 'ALUNOS'} ? ' active'"
            href="/feed?categoria=ALUNOS">Alunos</a>
 
         <a class="tab"
-           th:if="${usuario.tipo == 'PROFESSOR' || usuario.tipo == 'DIRECAO'}"
+           th:if="${usuario != null and (usuario.tipo == 'PROFESSOR' or usuario.tipo == 'DIRECAO')}"
            th:classappend="${categoriaAtual == 'PROFESSORES'} ? ' active'"
            href="/feed?categoria=PROFESSORES">Professores</a>
 
         <a class="tab"
-           th:if="${usuario.tipo == 'DIRECAO'}"
+           th:if="${usuario != null and usuario.tipo == 'DIRECAO'}"
            th:classappend="${categoriaAtual == 'DIRECAO'} ? ' active'"
            href="/feed?categoria=DIRECAO">Direção</a>
     </div>
@@ -153,7 +158,7 @@
                              th:text="${post.qtdCurtidas}"></span>)
         </button>
 
-        <!-- VER COMENTÁRIOS -->
+        <!-- BOTÃO VER COMENTÁRIOS -->
         <button class="btn"
                 th:attr="id='toggle-'+${post.id}"
                 onclick="toggleComentarios([[${post.id}]])">
@@ -171,7 +176,8 @@
             </div>
 
             <!-- NOVO COMENTÁRIO -->
-            <form th:action="@{/comentar}" method="post" style="margin-top:10px;">
+            <form th:if="${usuario != null}"
+                  th:action="@{/posts/comentar}" method="post" style="margin-top:10px;">
                 <input type="hidden" name="postId" th:value="${post.id}">
                 <input type="text" name="texto" placeholder="Escreva um comentário...">
                 <button class="btn" type="submit">Enviar</button>
@@ -179,9 +185,9 @@
 
         </div>
 
-    </div> <!-- fim do each -->
+    </div> <!-- fim each -->
 
-</div> <!-- fim container -->
+</div>
 
 <!-- SCRIPTS -->
 <script>
@@ -193,7 +199,7 @@
     function curtirPost(btn) {
         let id = btn.getAttribute("data-id");
 
-        fetch("/curtir/" + id, { method: "POST" })
+        fetch("/posts/" + id + "/curtir", { method: "POST" })
             .then(r => r.json())
             .then(data => {
                 document.getElementById("qtd-curtidas-" + id).innerText = data.qtd;

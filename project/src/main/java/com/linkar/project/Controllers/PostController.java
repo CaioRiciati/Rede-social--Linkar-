@@ -1,8 +1,13 @@
 package com.linkar.project.Controllers;
 
-import java.io.UnsupportedEncodingException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.linkar.project.Repository.CurtidaRepository;
@@ -21,9 +27,7 @@ import com.linkar.project.inum.Categoria;
 import com.linkar.project.model.Curtida;
 import com.linkar.project.model.Post;
 import com.linkar.project.model.Usuario;
-import com.linkar.project.service.CookieService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -38,16 +42,14 @@ public class PostController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private static String UPLOAD_DIR = "src/main/resources/static/uploads/posts/";
+    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/posts/";
 
     // -------------------------------------------------------------------------
     // NOVO POST
     // -------------------------------------------------------------------------
     @GetMapping("/novo-post")
     public String mostrarFormularioPost(Model model) {
-
         model.addAttribute("categorias", Categoria.values());
-
         return "novo-post";
     }
 
@@ -60,12 +62,26 @@ public class PostController {
             Model model) {
 
         try {
-            // pegar usuário logado
-            Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+            // Garantir pasta
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) uploadDir.mkdirs();
 
-            // foto igual seu código atual
-            ...
-            
+            // Foto
+            String fotoUrl = null;
+            if (!foto.isEmpty()) {
+                String nomeArquivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename();
+                Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
+                Files.write(caminho, foto.getBytes());
+                fotoUrl = "/uploads/posts/" + nomeArquivo;
+            }
+
+            // Usuário logado
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+            if (usuario == null) {
+                return "redirect:/login";
+            }
+
+            // Criar post
             Post post = new Post();
             post.setConteudo(conteudo);
             post.setCategoria(Categoria.valueOf(categoria));
@@ -76,42 +92,34 @@ public class PostController {
 
             return "redirect:/feed?categoria=TODOS";
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            model.addAttribute("mensagem", "Erro ao salvar a imagem!");
             return "novo-post";
         }
     }
 
-
     // -------------------------------------------------------------------------
-    // FEED COM FILTRO
+    // FEED
     // -------------------------------------------------------------------------
     @GetMapping("/feed")
     public String feed(
             @RequestParam(defaultValue = "TODOS") String categoria,
             Model model,
-            HttpServletRequest request) throws UnsupportedEncodingException {
+            HttpSession session) {
 
-        String usuarioIdStr = CookieService.getCookie(request, "usuarioId");
-
-        if (usuarioIdStr == null) {
-            return "redirect:/login";
-        }
-
-        Long usuarioId = Long.parseLong(usuarioIdStr);
-
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
         model.addAttribute("usuario", usuario);
 
         Categoria catEnum = Categoria.valueOf(categoria);
+        List<Post> posts = (catEnum == Categoria.TODOS)
+                ? postRepository.findAllByOrderByCriadoEmDesc()
+                : postRepository.findByCategoriaOrderByCriadoEmDesc(catEnum);
 
-        List<Post> posts;
-
-        if (catEnum == Categoria.TODOS) {
-            posts = postRepository.findAllByOrderByCriadoEmDesc();
-        } else {
-            posts = postRepository.findByCategoriaOrderByCriadoEmDesc(catEnum);
-        }
+        // adicionar contagem de curtidas em cada post (evita erro no thymeleaf)
+       // posts.forEach(p ->
+        //        p.setCurtidas(curtidaRepository.countByPost(p))
+       // );
 
         model.addAttribute("categoriaAtual", categoria);
         model.addAttribute("posts", posts);
@@ -119,40 +127,31 @@ public class PostController {
         return "feed";
     }
 
-
-
     // -------------------------------------------------------------------------
     // CURTIR POST
     // -------------------------------------------------------------------------
     @PostMapping("/posts/{id}/curtir")
+    @ResponseBody
     @Transactional
-    public String curtirPost(@PathVariable Long id) {
-        Optional<Post> optionalPost = postRepository.findById(id);
+    public Map<String, Object> curtirPost(@PathVariable Long id, HttpSession session) {
 
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-            Usuario usuario = usuarioRepository.findById(1L).orElseThrow();
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Post post = postRepository.findById(id).orElseThrow();
 
-            boolean jaCurtiu = curtidaRepository.existsByPostAndUsuario(post, usuario);
+        boolean jaCurtiu = curtidaRepository.existsByPostAndUsuario(post, usuario);
 
-            if (jaCurtiu) {
-                curtidaRepository.deleteByPostAndUsuario(post, usuario);
-            } else {
-                Curtida curtida = new Curtida();
-                curtida.setPost(post);
-                curtida.setUsuario(usuario);
-                curtidaRepository.save(curtida);
-            }
+        if (jaCurtiu) {
+            curtidaRepository.deleteByPostAndUsuario(post, usuario);
+        } else {
+            Curtida c = new Curtida();
+            c.setPost(post);
+            c.setUsuario(usuario);
+            curtidaRepository.save(c);
         }
 
-        return "redirect:/feed";
-    }
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("qtd", curtidaRepository.countByPost(post));
 
-    // -------------------------------------------------------------------------
-    // COMENTAR (ainda vai ser implementado)
-    // -------------------------------------------------------------------------
-    @PostMapping("/posts/comentar")
-    public String comentar() {
-        return "redirect:/feed";
+        return resp;
     }
 }
