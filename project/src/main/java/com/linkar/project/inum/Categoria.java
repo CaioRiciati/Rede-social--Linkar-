@@ -1,4 +1,5 @@
 package com.linkar.project.inum;
 
-public enum TipoUsuario {
+public enum Categoria {
     DIRECAO, PROFESSOR, ALUNO, TODOS}
+
