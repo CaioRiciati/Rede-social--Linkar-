@@ -1,0 +1,218 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #0d0d0d;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPO */
+.topo {
+  width: 100%;
+  background-color: #242424;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.icone-logo {
+  width: 35px;
+  height: 35px;
+  background-color: #009e60;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* ÍCONES DO TOPO */
+.icones-topo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-icone {
+  background: #1c1c1c;
+  border: none;
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.btn-icone img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.btn-icone:hover {
+  background-color: #009e60;
+  transform: scale(1.05);
+}
+
+.btn-icone:hover img {
+  opacity: 1;
+}
+
+/* CONTEÚDO CENTRAL */
+.login-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 70%);
+}
+
+/* CAIXA DE LOGIN */
+.login-box {
+  background-color: #141414;
+  border-radius: 12px;
+  padding: 60px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* LOGO CENTRAL */
+.logo-centro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* CAMPOS DE INPUT */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.campo {
+  background-color: #1e1e1e;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 10px;
+  transition: border 0.3s;
+}
+
+.campo:focus-within {
+  border: 1px solid #00b26e;
+}
+
+.icone-input {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icone-input img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.8;
+  filter: brightness(0) invert(1);
+}
+
+input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+/* BOTÃO ENTRAR */
+.btn-entrar {
+  background-color: #009e60;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.btn-entrar:hover {
+  background-color: #00b26e;
+}
+
+/* LINKS */
+.links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.links a {
+  color: #00b26e;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
+  .login-box {
+    padding: 25px;
+  }
+
+  .btn-entrar {
+    font-size: 0.9rem;
+  }
+
+  .topo {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .icones-topo {
+    gap: 10px;
+  }
+}

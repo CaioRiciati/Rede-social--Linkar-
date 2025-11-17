@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Agenda</title>
+  <link rel="stylesheet" href="/css/Agenda.css"/>
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header class="topo">
+    <div class="logo">
+      <div class="icone-logo">L</div>
+      <span>Linkar</span>
+    </div>
+
+    <div class="icones-topo">
+      <button id="btn-busca" class="btn-icone">
+        <img src="/images/lupa.png" alt="Ícone busca">
+      </button>
+      <button id="btn-sino" class="btn-icone">
+        <img src="/images/sino.png" alt="Ícone sino">
+      </button>
+      <button id="btn-perfil" class="btn-icone">
+        <img src="/images/perfil.png" alt="Ícone perfil">
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main-container">
+    <!-- CALENDÁRIO -->
+    <section class="calendar-section card-item">
+      <div class="card calendario-card">
+        <h2>Calendário</h2>
+        <div class="calendar">
+          <div class="calendar-header">
+            <button>&lt;</button>
+            <span>outubro 2025</span>
+            <button>&gt;</button>
+          </div>
+
+          <div class="calendar-grid">
+            <div>dom</div><div>seg</div><div>ter</div><div>qua</div>
+            <div>qui</div><div>sex</div><div>sáb</div>
+
+            <div class="inactive">28</div><div class="inactive">29</div><div class="inactive">30</div>
+            <div>1</div><div>2</div><div>3</div><div>4</div>
+            <div>5</div><div>6</div><div>7</div><div>8</div>
+            <div>9</div><div>10</div><div>11</div>
+            <div>12</div><div>13</div><div>14</div><div>15</div>
+            <div>16</div><div>17</div><div>18</div>
+            <div>19</div><div class="selected">20</div><div>21</div><div>22</div>
+            <div>23</div><div>24</div><div>25</div>
+            <div>26</div><div>27</div><div>28</div><div>29</div>
+            <div>30</div><div>31</div><div class="inactive">1</div>
+          </div>
+        </div>
+
+        <div class="calendar-footer">
+          <span class="dot"></span> Dias com tarefas
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO DE TAREFAS -->
+    <section class="task-section card-item">
+      <!-- NOVA TAREFA -->
+      <div class="card">
+        <h2>+ Nova Tarefa</h2>
+
+        <form>
+          <label>Título</label>
+          <input type="text" placeholder="Nome da tarefa" />
+
+          <label>Descrição</label>
+          <textarea placeholder="Detalhes da tarefa..."></textarea>
+
+          <div class="form-row">
+            <div>
+              <label>Data</label>
+              <input type="date" value="2025-10-20" />
+            </div>
+
+            <div>
+              <label>Prioridade</label>
+              <select>
+                <option>Alta</option>
+                <option selected>Média</option>
+                <option>Baixa</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-green">Criar Tarefa</button>
+        </form>
+      </div>
+
+      <!-- LISTA DE TAREFAS -->
+      <div class="card2">
+        <h3>Tarefas para 20 de outubro</h3>
+        <p class="empty">Nenhuma tarefa para este dia</p>
+        <p class="hint">Crie uma nova tarefa acima</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    <p>© 2025 Linkar - Todos os direitos reservados | Versão 1.0 | Última atualização: 20/10/2025 13:14</p>
+  </footer>
+</body>
+
+</html>

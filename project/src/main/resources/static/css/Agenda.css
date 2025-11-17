@@ -1,0 +1,279 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 70%);
+  color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CONTAINER GERAL */
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; /* Proporção ajustada para equilibrar os cards */
+  gap: 30px;
+  padding: 40px;
+  flex: 1;
+}
+
+/* ITENS DE CARD */
+.card-item {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  
+}
+
+/* CARD do calendário */
+.calendario-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 25px 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1; /* Faz o card se expandir para ocupar a altura disponível */
+  min-height: 0; /* Evita overflow */
+}
+
+.calendario-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+/* Conteúdo interno do calendário */
+.calendar {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1; /* Permite que o calendário ocupe o espaço disponível */
+  overflow: auto; /* Adiciona scroll se o conteúdo exceder */
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a2a2a;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.calendar-header span {
+  font-weight: 600;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.calendar-grid div {
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.calendar-grid div:hover {
+  background-color: #2d2d2d;
+  cursor: pointer;
+}
+
+.calendar-grid .inactive {
+  color: #555;
+}
+
+.calendar-grid .selected {
+  background-color: #00a878;
+  color: white;
+}
+
+/* RODAPÉ DO CALENDÁRIO */
+.calendar-footer {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00a878;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* --- CARDS PADRÕES --- */
+.card, .card2 {
+  background-color: #1f1f1f;
+  border-radius: 10px;
+  padding: 25px 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  min-height: 0; /* Evita overflow */
+}
+
+.card2 {
+  margin-top: 25px;
+}
+
+/* FORMULÁRIO */
+form label {
+  display: block;
+  margin-top: 10px;
+  color: #ddd;
+  font-size: 0.9rem;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  background-color: #2b2b2b;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  padding: 10px;
+  color: #f5f5f5;
+  margin-top: 5px;
+  outline: none;
+}
+
+form textarea {
+  height: 80px;
+  resize: none;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.btn-green {
+  background-color: #00a878;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-green:hover {
+  background-color: #009568;
+}
+
+/* LISTA DE TAREFAS */
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.empty {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* TOPO */
+.topo {
+  width: 100%;
+  background-color: #242424;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.icone-logo {
+  width: 35px;
+  height: 35px;
+  background-color: #009e60;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* ÍCONES DO TOPO */
+.icones-topo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-icone {
+  background: #1c1c1c;
+  border: none;
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.btn-icone img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+
+.btn-icone:hover img {
+  opacity: 1;
+}
+
+/* RODAPÉ */
+.footer {
+  background-color: #1e1e1e;
+  padding: 15px 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+  border-top: 1px solid #2a2a2a;
+}
