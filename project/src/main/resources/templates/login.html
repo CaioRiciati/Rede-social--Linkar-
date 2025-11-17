@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Linkar</title>
-  <link rel="stylesheet" href="../static/css/login.css">
+  <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
   <!-- TOPO -->
@@ -18,11 +18,11 @@
     </nav>
 <nav class="navegacao">
     <a href="/feed" class="nav-item ativo">
-      <img src="../static/images/casa.png" class="icone-feed" alt="Ícone Feed">
+      <img src="/images/casa.png" class="icone-feed" alt="Ícone Feed">
       <span>Feed</span>
     </a>
     <a href="/agenda" class="nav-item">
-      <img src="../static/images/agenda.png" class="icone-agenda" alt="Ícone Agenda">
+      <img src="/images/agenda.png" class="icone-agenda" alt="Ícone Agenda">
       <span>Agenda</span>
     </a>
   </nav>
@@ -46,21 +46,22 @@
       <form method="POST" action="/login">
         <div class="campo">
           <div class="icone-input">
-            <img src="../static/images/user_icon.png" alt="Ícone usuário">
+            <img src="/images/user_icon.png" alt="Ícone usuário">
           </div>
           <input type="text" placeholder="Usuário" required> 
         </div>
 
         <div class="campo">
           <div class="icone-input">
-            <img src="../static/images/user_icon.png" alt="">
+            <img src="/images/user_icon.png" alt="">
           </div>          
           <input type="password" placeholder="Senha" required>
           <div class="icone-cadeado">
-            <img src="../static/images/cadeado.png" alt="Ícone cadeado">
+            <img src="/images/cadeado.png" alt="Ícone cadeado">
           </div>
         </div>
         <button id="btnEntrar" type="submit" class="btn-entrar">ENTRAR</button>
       </form>
     </div>
+
   </main>
