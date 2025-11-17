@@ -35,7 +35,55 @@ public class Comentario {
 
     @ManyToOne
     @JoinColumn(name = "resposta_a")
-    private Comentario respostaA; 
+    private Comentario respostaA;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public LocalDateTime getCriadoEm() {
+		return criadoEm;
+	}
+
+	public void setCriadoEm(LocalDateTime criadoEm) {
+		this.criadoEm = criadoEm;
+	}
+
+	public Comentario getRespostaA() {
+		return respostaA;
+	}
+
+	public void setRespostaA(Comentario respostaA) {
+		this.respostaA = respostaA;
+	} 
 
     
 }
