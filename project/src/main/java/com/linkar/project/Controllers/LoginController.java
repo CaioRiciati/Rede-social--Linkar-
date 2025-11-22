@@ -32,7 +32,7 @@ public class LoginController {
         if (usuarioLogado != null) {
             CookieService.setCookie(response, "usuarioId", String.valueOf(usuarioLogado.getId()), 10000);
             CookieService.setCookie(response, "nomeUsuario", usuarioLogado.getNome(), 10000);
-            return "redirect:/home";
+            return "redirect:/feed";
         }
 
         model.addAttribute("erro", "Usuário ou senha inválidos!");
@@ -41,6 +41,6 @@ public class LoginController {
 
     @GetMapping("/home")
     public String home() {
-        return "home";
+        return "feed";
     }
 }
