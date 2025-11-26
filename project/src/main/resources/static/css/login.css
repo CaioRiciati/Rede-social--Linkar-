@@ -52,6 +52,16 @@ body {
   font-weight: bold;
 }
 
+.icone-logo2 {
+  width: 40px;
+  height: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
 /* Navegação (Feed / Agenda) */
 .navegacao {
   display: flex;
@@ -83,9 +93,10 @@ body {
 /* Ícones (substitua pelo seu depois) */
 .icone-feed,
 .icone-agenda {
-  width: 18px;
-  height: 18px;
+  width: 70px;
+  height: 40px;
   display: inline-block;
+  margin: -20px;
 }
 
 

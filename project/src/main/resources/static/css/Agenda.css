@@ -234,6 +234,54 @@ form textarea {
   font-weight: bold;
 }
 
+.icone-logo2 {
+  width: 40px;
+  height: 30px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Navegação (Feed / Agenda) */
+.navegacao {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #cfcfcf;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 141, 96, 0.15);
+  color: #00b97f;
+}
+
+.nav-item.ativo {
+  background-color: rgba(0, 141, 96, 0.2);
+  color: #00b97f;
+}
+
+/* Ícones (substitua pelo seu depois) */
+.icone-feed,
+.icone-agenda {
+  width: 70px;
+  height: 40px;
+  display: inline-block;
+  margin: -20px;
+}
+
+
 /* ÍCONES DO TOPO */
 .icones-topo {
   display: flex;
@@ -263,6 +311,10 @@ form textarea {
   transition: opacity 0.3s ease;
 }
 
+.btn-icone:hover {
+  background-color: #009e60;
+  transform: scale(1.05);
+}
 
 .btn-icone:hover img {
   opacity: 1;

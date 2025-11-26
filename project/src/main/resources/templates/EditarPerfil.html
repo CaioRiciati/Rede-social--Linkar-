@@ -7,37 +7,40 @@
   <link rel="stylesheet" href="/css/EditarPerfil.css">
 </head>
 <body>
-  <!-- ===== BARRA SUPERIOR (HEADER) ===== -->
-  <header class="topo">
-    <!-- Lado esquerdo -->
-    <div class="user-card">
-      <div class="user-avatar">E</div>
-      <span class="user-name">EscolaConnect</span>
-    </div>
+	<!-- TOPO -->
+	  <header class="topo">
+	    <div class="logo">
+	      <div class="icone-logo"> <img th:src="@{/images/logo.png}" class="icone-logo2" alt="Ícone Feed"></div>
+	      <span>Linkar</span>
+	    </div>
 
-    <!-- Centro (menu com ícones + texto) -->
-    <nav class="menu-centro">
-      <a href="/feed" class="nav-link">
-        <img src="/images/lar.png" alt="Feed" class="icon"> Feed
-      </a>
-      <a href="/agenda" class="nav-link">
-        <img src="/images/agenda.png" alt="Agenda" class="icon"> Agenda
-      </a>
-    </nav>
+	<nav class="navegacao">
 
-    <!-- Lado direito -->
-    <div class="icones-topo">
-      <button class="btn-icone" aria-label="Buscar">
-        <img src="/images/lupa-arredondada.png" alt="Buscar">
-      </button>
-      <button class="btn-icone" aria-label="Notificações">
-        <img src="/images/sino.png" alt="Notificações">
-      </button>
-      <button class="btn-icone btn-icone--green" aria-label="Perfil">
-        <img src="/images/pessoa1.png" alt="Perfil">
-      </button>
-    </div>
-  </header>
+	    <a th:href="@{/feed}" class="nav-item ativo">
+
+	      <img th:src="@{/images/casa.png}" class="icone-feed" alt="Ícone Feed">
+	      <span>Feed</span>
+	    </a>
+	    <a th:href="@{/agenda}" class="nav-item">
+	      <img th:src="@{/images/agenda.png}" class="icone-agenda" alt="Ícone Agenda">
+	      <span>Agenda</span>
+	    </a>
+	</nav>
+
+
+	    <div class="icones-topo">
+	    <button id="btn-busca" class="btn-icone"> 
+
+	        <img th:src="@{/images/lupa.png}" alt="Ícone busca"> 
+	    </button>
+	    <button id="btn-sino" class="btn-icone"> 
+	        <img th:src="@{/images/sino.png}" alt="Ícone sino"> 
+	    </button>
+	    <button id="btn-perfil" class="btn-icone"> 
+	        <img th:src="@{/images/user_icon.png}" alt="Ícone perfil"> 
+	    </button>
+	  </div>
+	  </header>
 
   <!-- ===== CONTEÚDO CENTRAL (EDITAR PERFIL) ===== -->
   <main class="centraliza">

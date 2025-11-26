@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,55 +7,74 @@
   <title>Agenda</title>
   <link rel="stylesheet" href="/css/Agenda.css"/>
 </head>
+
+
 <body>
 
-  <!-- TOPO -->
-  <header class="topo">
-    <div class="logo">
-      <div class="icone-logo">L</div>
-      <span>Linkar</span>
-    </div>
+	<!-- TOPO -->
+	  <header class="topo">
+	    <div class="logo">
+	      <div class="icone-logo"> <img th:src="@{/images/logo.png}" class="icone-logo2" alt="Ícone Feed"></div>
+	      <span>Linkar</span>
+	    </div>
 
-    <div class="icones-topo">
-      <button id="btn-busca" class="btn-icone">
-        <img src="/images/lupa.png" alt="Ícone busca">
-      </button>
-      <button id="btn-sino" class="btn-icone">
-        <img src="/images/sino.png" alt="Ícone sino">
-      </button>
-      <button id="btn-perfil" class="btn-icone">
-        <img src="/images/perfil.png" alt="Ícone perfil">
-      </button>
-    </div>
-  </header>
+	<nav class="navegacao">
+
+	    <a th:href="@{/feed}" class="nav-item">
+
+	      <img th:src="@{/images/casa.png}" class="icone-feed" alt="Ícone Feed">
+	      <span>Feed</span>
+	    </a>
+	    <a th:href="@{/agenda}" class="nav-item ativo">
+	      <img th:src="@{/images/agenda.png}" class="icone-agenda" alt="Ícone Agenda">
+	      <span>Agenda</span>
+	    </a>
+	</nav>
+
+
+	    <div class="icones-topo">
+	    <button id="btn-busca" class="btn-icone"> 
+
+	        <img th:src="@{/images/lupa.png}" alt="Ícone busca"> 
+	    </button>
+	    <button id="btn-sino" class="btn-icone"> 
+	        <img th:src="@{/images/sino.png}" alt="Ícone sino"> 
+	    </button>
+	    <button id="btn-perfil" class="btn-icone"> 
+	        <img th:src="@{/images/user_icon.png}" alt="Ícone perfil"> 
+	    </button>
+	  </div>
+	  </header>
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="main-container">
-    <!-- CALENDÁRIO -->
+    <!-- CALENDÁRIO (estático por enquanto) -->
     <section class="calendar-section card-item">
       <div class="card calendario-card">
         <h2>Calendário</h2>
         <div class="calendar">
           <div class="calendar-header">
             <button>&lt;</button>
-            <span>outubro 2025</span>
+            <span th:text="${#temporals.format(diaSelecionado, 'MMMM yyyy')}"></span>
             <button>&gt;</button>
           </div>
 
+          <!-- Calendário ainda está apenas visual, não dinâmico -->
           <div class="calendar-grid">
             <div>dom</div><div>seg</div><div>ter</div><div>qua</div>
             <div>qui</div><div>sex</div><div>sáb</div>
 
-            <div class="inactive">28</div><div class="inactive">29</div><div class="inactive">30</div>
-            <div>1</div><div>2</div><div>3</div><div>4</div>
-            <div>5</div><div>6</div><div>7</div><div>8</div>
-            <div>9</div><div>10</div><div>11</div>
-            <div>12</div><div>13</div><div>14</div><div>15</div>
-            <div>16</div><div>17</div><div>18</div>
-            <div>19</div><div class="selected">20</div><div>21</div><div>22</div>
-            <div>23</div><div>24</div><div>25</div>
-            <div>26</div><div>27</div><div>28</div><div>29</div>
-            <div>30</div><div>31</div><div class="inactive">1</div>
+            <div class="inactive">26</div><div class="inactive">27</div><div class="inactive">28</div>
+            <div class="inactive">29</div><div class="inactive">30</div><div class="inactive">31</div><div>1</div>
+            <div>2</div><div>3</div><div>4</div><div>5</div>
+            <div>6</div><div>7</div><div>8</div>
+            <div>9</div><div>10</div><div>11</div><div>12</div>
+            <div>13</div><div>14</div><div>15</div>
+            <div>16</div><div >17</div><div>18</div><div>19</div>
+            <div>20</div><div>21</div><div>22</div>
+            <div>23</div><div>24</div><div >25</div><div>26</div>
+            <div class="selected">27</div><div>28</div><div >29</div>
+			<div>30</div><div class="inactive">01</div><div class="inactive">02</div>
           </div>
         </div>
 
@@ -67,29 +86,31 @@
 
     <!-- SEÇÃO DE TAREFAS -->
     <section class="task-section card-item">
+
       <!-- NOVA TAREFA -->
       <div class="card">
         <h2>+ Nova Tarefa</h2>
 
-        <form>
+        <form action="/agenda/nova" method="POST">
           <label>Título</label>
-          <input type="text" placeholder="Nome da tarefa" />
+          <input type="text" name="titulo" placeholder="Nome da tarefa" required />
 
           <label>Descrição</label>
-          <textarea placeholder="Detalhes da tarefa..."></textarea>
+          <textarea name="descricao" placeholder="Detalhes da tarefa..." required></textarea>
 
           <div class="form-row">
             <div>
               <label>Data</label>
-              <input type="date" value="2025-10-20" />
+              <input type="date" name="data" th:value="${diaSelecionado}" required />
             </div>
 
             <div>
               <label>Prioridade</label>
-              <select>
-                <option>Alta</option>
-                <option selected>Média</option>
-                <option>Baixa</option>
+              <select name="prioridade">
+                <option th:each="p : ${prioridades}"
+                        th:value="${p}"
+                        th:text="${p}">
+                </option>
               </select>
             </div>
           </div>
@@ -100,17 +121,33 @@
 
       <!-- LISTA DE TAREFAS -->
       <div class="card2">
-        <h3>Tarefas para 20 de outubro</h3>
-        <p class="empty">Nenhuma tarefa para este dia</p>
-        <p class="hint">Crie uma nova tarefa acima</p>
+        <h3 th:text="'Tarefas para ' + ${#temporals.format(diaSelecionado, 'dd/MM/yyyy')}"></h3>
+
+        <!-- Se estiver vazio -->
+        <div th:if="${tarefas.size() == 0}">
+          <p class="empty">Nenhuma tarefa para este dia</p>
+          <p class="hint">Crie uma nova tarefa acima</p>
+        </div>
+
+        <!-- Se tiver tarefas -->
+        <ul th:if="${tarefas.size() > 0}">
+          <li th:each="t : ${tarefas}">
+            <strong th:text="${t.titulo}"></strong>
+            (<span th:text="${t.prioridade}"></span>)
+            <p th:text="${t.descricao}"></p>
+
+            <a th:href="'/agenda/excluir/' + ${t.id}" class="btn-red">Excluir</a>
+            <hr />
+          </li>
+        </ul>
       </div>
+
     </section>
   </main>
 
   <!-- RODAPÉ -->
   <footer class="footer">
-    <p>© 2025 Linkar - Todos os direitos reservados | Versão 1.0 | Última atualização: 20/10/2025 13:14</p>
+    <p>© 2025 Linkar - Todos os direitos reservados | Versão 1.0</p>
   </footer>
 </body>
-
 </html>

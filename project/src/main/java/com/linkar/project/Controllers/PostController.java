@@ -42,11 +42,9 @@ public class PostController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/posts/";
+    private static final String UPLOAD_DIR = "project/src/main/resources/static/uploads/posts/";
 
-    // -------------------------------------------------------------------------
-    // NOVO POST
-    // -------------------------------------------------------------------------
+
     @GetMapping("/novo-post")
     public String mostrarFormularioPost(Model model) {
         model.addAttribute("categorias", Categoria.values());
