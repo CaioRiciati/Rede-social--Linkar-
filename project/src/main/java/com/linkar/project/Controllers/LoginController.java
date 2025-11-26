@@ -14,6 +14,7 @@ import com.linkar.project.model.Usuario;
 import com.linkar.project.service.CookieService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -27,17 +28,27 @@ public class LoginController {
     }
 
     @PostMapping("/logar")
-    public String loginUsuario(Usuario usuario, Model model, HttpServletResponse response) throws UnsupportedEncodingException {
+    public String loginUsuario(Usuario usuario, Model model, HttpServletResponse response, HttpSession session) 
+            throws UnsupportedEncodingException {
+
         Usuario usuarioLogado = ur.login(usuario.getEmail(), usuario.getSenha());
+
         if (usuarioLogado != null) {
+
+            // Cookie continua igual
             CookieService.setCookie(response, "usuarioId", String.valueOf(usuarioLogado.getId()), 10000);
             CookieService.setCookie(response, "nomeUsuario", usuarioLogado.getNome(), 10000);
+
+            // AGORA SIM: colocar usuario na sessão
+            session.setAttribute("usuarioLogado", usuarioLogado);
+
             return "redirect:/feed";
         }
 
         model.addAttribute("erro", "Usuário ou senha inválidos!");
         return "login";
     }
+
 
     @GetMapping("/home")
     public String home() {

@@ -107,6 +107,7 @@ public class PostController {
             @RequestParam(defaultValue = "TODOS") String categoria,
             Model model,
             HttpSession session) {
+    	model.addAttribute("categorias", Categoria.values());
 
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
         model.addAttribute("usuario", usuario);
