@@ -75,17 +75,16 @@ public class PostController {
 
             String fotoUrl = null;
 
-            // Se tiver foto, salva no Desktop
-            if (!foto.isEmpty()) {
+                      if (!foto.isEmpty()) {
                 String nomeArquivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename();
                 Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
                 Files.write(caminho, foto.getBytes());
 
-                // AVISO: isto não vai abrir no navegador mais, só serve de referência
+           
                 fotoUrl = nomeArquivo;
             }
 
-            // Usuário logado
+       
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
             if (usuario == null) {
                 return "redirect:/login";

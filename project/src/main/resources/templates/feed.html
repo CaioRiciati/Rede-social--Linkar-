@@ -5,6 +5,262 @@
     <title>Linkar</title>
 
    <link rel="stylesheet" href="/css/home.css">
+   <style>
+
+   /* ===========================================
+      BASE GERAL
+      =========================================== */
+   body {
+       font-family: Arial, sans-serif;
+       background-color: #1d1f23;
+       background-image: radial-gradient(circle at center, #3c3f46 0%, #1d1424 100%);
+       margin: 0;
+       padding: 0;
+       min-height: 100vh;
+       color: white;
+       display: flex;
+       flex-direction: column;
+   }
+
+   /* HEADER — MANTIDO DO JEITO QUE VOCÊ PEDIU */
+   header {
+       background-color: #0b8457;
+       color: white;
+       padding: 15px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+   }
+
+   /* ===========================================
+      FEED + ABAS
+      =========================================== */
+   .feed-container {
+       width: 700px;
+       margin: 25px auto;
+       color: white;
+   }
+
+   /* Contêiner das abas */
+   .tabs {
+       display: flex;
+       gap: 10px;
+       background-color: rgba(73, 73, 73, 0.35);
+       border-radius: 12px;
+       padding: 8px;
+       margin-top: 20px;
+       backdrop-filter: blur(6px);
+   }
+
+   /* Aba individual */
+   .tab {
+       padding: 10px 25px;
+       border-radius: 8px;
+       background-color: #2c2f36;
+       cursor: pointer;
+       text-decoration: none;
+       color: white;
+       font-weight: 600;
+       transition: background 0.25s, transform 0.2s;
+   }
+
+   .tab:hover {
+       background-color: #3b3e46;
+       transform: translateY(-2px);
+   }
+
+   .tab.active {
+       background-color: #0b8457;
+       box-shadow: 0 0 10px rgba(0, 200, 130, 0.45);
+   }
+
+   /* ===========================================
+      POST (CARD)
+      =========================================== */
+   .post {
+       background-color: #2b2f36;
+       padding: 20px;
+       border-radius: 14px;
+       margin-bottom: 25px;
+       border: 1px solid rgba(255,255,255,0.05);
+       box-shadow: 0 0 12px rgba(0,0,0,0.4);
+       transition: transform .2s, box-shadow .2s;
+   }
+
+   .post:hover {
+       transform: translateY(-3px);
+       box-shadow: 0 0 25px rgba(0,0,0,0.5);
+   }
+
+   .post-header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+   }
+
+   .post-header h3 {
+       margin: 0;
+       color: #00e89d;
+   }
+
+   .post p {
+       line-height: 1.4;
+       margin-top: 10px;
+   }
+
+   /* Imagem do post */
+   .post img {
+       max-width: 100%;
+       border-radius: 10px;
+       margin-top: 12px;
+       border: 1px solid #444;
+   }
+
+   /* ===========================================
+      FILE INPUT ESTILIZADO
+      =========================================== */
+   .postar input[type="file"] {
+       display: none;
+   }
+
+   .file-label {
+       display: inline-block;
+       background: #1f2227;
+       border: 1px solid #3a3d45;
+       color: #cfcfcf;
+       padding: 10px 16px;
+       border-radius: 10px;
+       cursor: pointer;
+       transition: 0.25s ease;
+       font-weight: 600;
+       margin-top: 10px;
+   }
+
+   .file-label:hover {
+       background: #292c33;
+       border-color: #4b4e56;
+       transform: translateY(-2px);
+   }
+
+   .file-name {
+       margin-top: 8px;
+       font-size: 0.9em;
+       color: #9e9e9e;
+   }
+
+   /* ===========================================
+      SELECT ESTILIZADO
+      =========================================== */
+   .postar select {
+       margin-top: 10px;
+       padding: 12px;
+       background: #1f2227;
+       color: white;
+       border: 1px solid #3a3d45;
+       border-radius: 12px;
+       font-size: 0.95em;
+       width: 100%;
+       cursor: pointer;
+       appearance: none;
+       transition: border 0.25s ease, box-shadow 0.25s ease;
+       background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+       background-repeat: no-repeat;
+       background-position: right 14px center;
+   }
+
+   .postar select:focus {
+       border-color: #0b8457;
+       box-shadow: 0 0 10px rgba(11, 132, 87, 0.4);
+   }
+
+   /* ===========================================
+      COMENTÁRIOS
+      =========================================== */
+
+   .comentarios {
+       background: #24262c;
+       padding: 12px;
+       border-radius: 12px;
+       margin-top: 12px;
+       border: 1px solid rgba(255,255,255,0.08);
+   }
+
+   .comentario {
+       background: #34373d;
+       padding: 10px;
+       border-radius: 8px;
+       margin-top: 8px;
+   }
+
+   .comentario strong {
+       color: #00e89d;
+   }
+
+   .comentarios input[type="text"] {
+       width: 85%;
+       padding: 8px;
+       background: #1e2024;
+       border: 1px solid #3a3d45;
+       border-radius: 8px;
+       color: white;
+   }
+
+   /* ===========================================
+      CARD DE PUBLICAÇÃO
+      =========================================== */
+   .postar {
+       background: #2b2f36;
+       border-radius: 14px;
+       padding: 25px;
+       width: 680px;
+       margin: 120px auto 25px auto;
+       box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+       border: 1px solid rgba(255,255,255,0.05);
+   }
+
+   .Escreva {
+       width: 100%;
+       background: #1f2227;
+       color: white;
+       border: 1px solid #3a3d45;
+       border-radius: 10px;
+       padding: 12px;
+       font-size: 1em;
+       resize: none;
+   }
+
+   .preview {
+       margin-top: 12px;
+       background: #1f2227;
+       border: 1px solid #3a3d45;
+       border-radius: 10px;
+       padding: 10px;
+       max-height: 250px;
+       overflow-y: auto;
+   }
+
+   .preview-image-style {
+       max-width: 100%;
+       max-height: 220px;
+       border-radius: 8px;
+   }
+
+   .Publicar {
+       display: block;
+       margin-left: auto;
+       margin-top: 18px;
+       background: linear-gradient(135deg, #0b8457, #0d9c67);
+       border: none;
+       border-radius: 10px;
+       padding: 10px 22px;
+       color: white;
+       font-size: 1.05em;
+       font-weight: bold;
+       cursor: pointer;
+   }
+
+   </style>
+
 </head>
 
 <body>
@@ -19,13 +275,13 @@
 
 		<nav class="navegacao">
 
-		    <a th:href="@{/feed}" class="nav-item">
+		    <a th:href="@{/feed}" class="nav-item ativo">
 
-		      <img th:src="@{/images/casa.png}" class="icone-feed" alt="Ícone Feed">
+		      <img th:src="@{/images/casa.png}" class="icone-agenda" alt="Ícone Feed">
 		      <span>Feed</span>
 		    </a>
-		    <a th:href="@{/agenda}" class="nav-item ativo">
-		      <img th:src="@{/images/agenda.png}" class="icone-agenda" alt="Ícone Agenda">
+		    <a th:href="@{/agenda}" class="nav-item">
+		      <img th:src="@{/images/agenda.png}" class="icone-feed" alt="Ícone Agenda">
 		      <span>Agenda</span>
 		    </a>
 		</nav>
@@ -51,15 +307,17 @@
 
 		  <form class="postar" th:action="@{/salvar-post}" method="post" enctype="multipart/form-data">
 		      <label>Conteúdo:</label>
-		      <textarea class="Escreva" name="conteudo" rows="4" placeholder="Escreva algo..."></textarea>
+		      <textarea class="Escreva" name="conteudo" rows="4" placeholder="Oque ira postar hoje?"></textarea>
 
-		      <label>Foto:</label>
-		      <!-- Mudei 'accept="/images/*"' para 'accept="image/*"' (caminho relativo estava incorreto) -->
-		      <input type="file" name="foto" accept="image/*" onchange="previewImage(event)"> 
+			  <label>Foto:</label>
+			  <label for="foto" class="file-label">📁 Escolher imagem</label>
+			  <input type="file" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+			  <span id="fileName" class="file-name"></span>
+
 		      
 		      <label>Visibilidade:</label>
 		      <select name="categoria">
-		          <option value="TODOS">todos</option>
+		          <option value="TODOS">Todos</option>
 		          <option value="ALUNO">Alunos</option>
 		          <option value="PROFESSOR">Professores</option>
 		          <option value="DIRECAO">Gestão</option>
