@@ -42,15 +42,24 @@ public class PostController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private static final String UPLOAD_DIR = "project/src/main/resources/static/uploads/posts/";
+    // SALVAR NA ÁREA DE TRABALHO
+    private static final String UPLOAD_DIR =
+            System.getProperty("user.home") + "/Desktop/uploads_posts/";
 
 
+    // -------------------------------------------------------------------------
+    // NOVO POST (FORMULÁRIO)
+    // -------------------------------------------------------------------------
     @GetMapping("/novo-post")
     public String mostrarFormularioPost(Model model) {
         model.addAttribute("categorias", Categoria.values());
         return "novo-post";
     }
 
+
+    // -------------------------------------------------------------------------
+    // SALVAR POST
+    // -------------------------------------------------------------------------
     @PostMapping("/salvar-post")
     public String salvarPost(
             @RequestParam("conteudo") String conteudo,
@@ -60,17 +69,20 @@ public class PostController {
             Model model) {
 
         try {
-            // Garantir pasta
-            File uploadDir = new File(UPLOAD_DIR);
-            if (!uploadDir.exists()) uploadDir.mkdirs();
+            // Criar pasta no Desktop se não existir
+            File uploadDirFile = new File(UPLOAD_DIR);
+            if (!uploadDirFile.exists()) uploadDirFile.mkdirs();
 
-            // Foto
             String fotoUrl = null;
+
+            // Se tiver foto, salva no Desktop
             if (!foto.isEmpty()) {
                 String nomeArquivo = System.currentTimeMillis() + "_" + foto.getOriginalFilename();
                 Path caminho = Paths.get(UPLOAD_DIR + nomeArquivo);
                 Files.write(caminho, foto.getBytes());
-                fotoUrl = "/uploads/posts/" + nomeArquivo;
+
+                // AVISO: isto não vai abrir no navegador mais, só serve de referência
+                fotoUrl = nomeArquivo;
             }
 
             // Usuário logado
@@ -83,7 +95,7 @@ public class PostController {
             Post post = new Post();
             post.setConteudo(conteudo);
             post.setCategoria(Categoria.valueOf(categoria));
-            post.setFotoUrl(fotoUrl);
+            post.setFotoUrl(fotoUrl); // agora só armazena o nome
             post.setUsuario(usuario);
 
             postRepository.save(post);
@@ -97,6 +109,7 @@ public class PostController {
         }
     }
 
+
     // -------------------------------------------------------------------------
     // FEED
     // -------------------------------------------------------------------------
@@ -105,7 +118,8 @@ public class PostController {
             @RequestParam(defaultValue = "TODOS") String categoria,
             Model model,
             HttpSession session) {
-    	model.addAttribute("categorias", Categoria.values());
+
+        model.addAttribute("categorias", Categoria.values());
 
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
         model.addAttribute("usuario", usuario);
@@ -115,16 +129,12 @@ public class PostController {
                 ? postRepository.findAllByOrderByCriadoEmDesc()
                 : postRepository.findByCategoriaOrderByCriadoEmDesc(catEnum);
 
-        // adicionar contagem de curtidas em cada post (evita erro no thymeleaf)
-       // posts.forEach(p ->
-        //        p.setCurtidas(curtidaRepository.countByPost(p))
-       // );
-
         model.addAttribute("categoriaAtual", categoria);
         model.addAttribute("posts", posts);
 
         return "feed";
     }
+
 
     // -------------------------------------------------------------------------
     // CURTIR POST

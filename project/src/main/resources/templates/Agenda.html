@@ -129,6 +129,22 @@
           <p class="hint">Crie uma nova tarefa acima</p>
         </div>
 
+		<div class="card2">
+		  <form method="get" action="/agenda" class="filtro-tarefas">
+
+		    <input type="hidden" name="data" th:value="${diaSelecionado}" />
+
+		    <label>Mostrar:</label>
+
+		    <select name="filtro" onchange="this.form.submit()">
+		      <option value="dia" th:selected="${filtro == 'dia'}">Tarefas do dia</option>
+		      <option value="todas" th:selected="${filtro == 'todas'}">Todas as tarefas</option>
+		    </select>
+
+		  </form>
+		</div>
+		
+		
         <!-- Se tiver tarefas -->
         <ul th:if="${tarefas.size() > 0}">
           <li th:each="t : ${tarefas}">

@@ -67,7 +67,7 @@ public class AgendaController {
 
         tarefaRepo.save(t);
 
-        return "redirect:/Agenda?data=" + data;
+        return "redirect:/agenda";
     }
 
     // ---------------------------
@@ -83,6 +83,6 @@ public class AgendaController {
             tarefaRepo.delete(t);
         }
 
-        return "redirect:/Agenda?data=" + LocalDate.now();
+        return "redirect:/agenda";
     }
 }

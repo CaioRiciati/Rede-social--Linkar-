@@ -103,6 +103,23 @@ body {
   color: #555;
 }
 
+
+.btn-red{
+	background-color: #00a878;
+	border: none;
+	color: #fff;
+	padding: 5px;
+	border-radius: 6px;
+	text-decoration:none;
+	width: 10px;
+	margin: 15px;
+	margin-top:20px;	
+	cursor: pointer;
+	font-size: 0.7em;
+	
+}
+
+
 .calendar-grid .selected {
   background-color: #00a878;
   color: white;

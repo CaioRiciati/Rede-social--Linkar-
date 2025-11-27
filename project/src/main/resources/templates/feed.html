@@ -126,8 +126,9 @@
 
         <p th:text="${post.conteudo}"></p>
 
-        <img th:if="${post.fotoUrl != null}" th:src="${post.fotoUrl}"
-             style="max-width:100%; border-radius:8px; margin-top:10px;">
+		<img th:if="${post.fotoUrl != null}"
+		     th:src="@{'/imagens/' + ${post.fotoUrl}}"
+		     style="max-width:100%; border-radius:8px; margin-top:10px;">
 
         <p style="font-size:12px; color:gray;">
             Categoria: <b th:text="${post.categoria}"></b>
